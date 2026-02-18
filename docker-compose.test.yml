@@ -1,0 +1,19 @@
+services:
+  api-service-test:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: test
+    env_file:
+      - .env
+    environment:
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+    depends_on:
+      - redis
+    command: ["npm", "test"]
+
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
